@@ -1,0 +1,78 @@
+﻿@model UserModelRegister
+
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>create account</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">create account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+<!--section start-->
+<section class="register-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>create account</h3>
+                <div class="theme-card">
+                    <form class="theme-form" method="post" role="form" asp-controller="User" asp-action="Register">
+                        <div class="form-row form-group">
+                            <div class="col-md-6">
+                                <label for="email">First Name</label>
+                                <input asp-for="FirstName" type="text" class="form-control" id="fname" placeholder="First Name"
+                                       required="">
+                                <span class="text-danger" asp-validation-for="FirstName"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Last Name</label>
+                                <input asp-for="LastName" type="text" class="form-control" id="lname" placeholder="Last Name"
+                                       required="">
+                                <span class="text-danger" asp-validation-for="LastName"></span>
+                            </div>
+                        </div>
+                        <div class="form-row form-group">
+                            <div class="col-md-6">
+                                <label for="email">email</label>
+                                <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Email" required="">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" id="review"
+                                       placeholder="Enter your password" required="">
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+                        </div>
+                        <button type="submit" formmethod="post" class="btn btn-solid">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->
+
+
+@section Scripts
+{
+    <script src="~/Admin/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/Admin/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "All Products";
+}
+
+
+
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>All Products</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">All Products</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+<!-- section start -->
+<section class="section-b-space ratio_asos">
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="collection-product-wrapper">
+                                    <div class="product-top-filter">
+                                        <div class="container-fluid p-0">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="product-filter-content">
+                                                        
+                                                        <div class="collection-view">
+                                                            <ul>
+                                                                <li><i class="fa fa-th grid-layout-view"></i></li>
+                                                                <li>
+                                                                    <i class="fa fa-list-ul list-layout-view"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="collection-grid-view">
+                                                            <ul>
+                                                                <li><img src="~/FrontEnd/assets/images/icon/2.png" alt="" class="product-2-layout-view"></li>
+                                                                <li><img src="~/FrontEnd/assets/images/icon/3.png" alt="" class="product-3-layout-view"></li>
+                                                                <li><img src="~/FrontEnd/assets/images/icon/4.png" alt="" class="product-4-layout-view"></li>
+                                                                <li><img src="~/FrontEnd/assets/images/icon/6.png" alt="" class="product-6-layout-view"></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-wrapper-grid">
+                                        <div class="row margin-res" id="ItemArea">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="product-pagination" id="ItemPagination">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section End -->
+@section Styles
+{
+    <link href="~/frontend/custom/css/pagination.css" rel="stylesheet" />
+}
+@section Scripts
+{
+	<script src="~/frontend/modules/helper.js"></script>
+    <script src="~/frontend/custom/js/pagination.js"></script>
+    <script src="~/frontend/modules/items.js"></script>
+    <script>
+        ClsItems.GetAll();
+    </script>
+}

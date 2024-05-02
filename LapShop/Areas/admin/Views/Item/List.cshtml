@@ -1,0 +1,92 @@
+﻿@model List<VwItem>
+
+@{
+    ViewData["Title"] = "Items";
+}
+
+@section Styles
+{
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="~/Admin/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- End plugin css for this page -->
+    <link href="~/Admin/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <h5 class="form-label">@ResAdmin.lblCategoryName</h5>
+                    <select id="select2" class="form-select" asp-for="@ViewData["categoryId"]" asp-items="@(new SelectList(ViewBag.lstCategories,"CategoryId","CategoryName"))"
+                            onchange="Search(this)">
+                        <option value="0">Select a Catgeory</option>
+                      </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <a href="/admin/Item/Edit" class="btn btn-success btn-fw">Add New Item</a>
+                <br /> <br />
+
+                <table id="order-listing" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>@ResAdmin.lblImage</th>
+                            <th>@ResAdmin.lbItemName</th>
+                            <th>@ResAdmin.lblCategoryName</th>
+                            <th>@ResAdmin.lblSalesPrice</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr style="margin:0px;padding:0px;">
+                                <td class="col-md-1"> <img  src="/Admin/upload/images/items/@item.ImageName" /></td>
+                                <td class="col-md-1">@item.ItemName</td>
+                                <td class="col-md-1">@item.CategoryName</td>
+                                <td class="col-md-1">@item.SalesPrice</td>
+                                <td class="col-md-1" style="margin:0px;padding:0px;">
+                                    <a style="height:max-content"
+                                       asp-controller="Item" asp-action="Edit" asp-route-itemId="@item.ItemId"
+                                       class="btn btn-info ">Edit <i class="bi bi-pencil-fill"></i></a>
+                                    <a class="btn btn-danger js-delete" data-id="@item.ItemId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+
+    <!-- Plugin js for this page -->
+    <script src="~/Admin/assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="~/Admin/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page -->
+    <script src="~/Admin/assets/js/data-table.js"></script>
+    <!-- End custom js for this page -->
+    <script src="~/Admin/lib/sweetalert2/sweetalert2.min.js" asp-append-version="true"></script>
+    <script src="~/Admin/js/DeleteItem-List.js" asp-append-version="true"></script>
+
+        <script>
+            function Search(dropDown) {
+            var categoryId = $(dropDown).val();
+            window.location.href = "/admin/Item/List?categoryId=" + categoryId;
+            }
+
+        </script>
+}
+
+

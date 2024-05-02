@@ -1,0 +1,69 @@
+﻿@model TbCategory
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+    <div class="page-header">
+        <h3 class="page-title"> Add new category </h3>
+       
+    </div>
+    <div class="row">
+        <div class="col-md-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <form class="forms-sample" method="post" enctype="multipart/form-data"
+                          asp-controller="Category" asp-action="Save" role="form">
+                        <input asp-for="CategoryId" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <input asp-for="ImageName" type="hidden" />
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblCategoryName</label>
+                            <input asp-for="CategoryName" type="text" class="form-control" placeholder="Category Name">
+                        <span class="text-danger" asp-validation-for="CategoryName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblShowHomePage</label>
+                            <input asp-for="ShowInHomePage"  type="checkbox"  />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">
+                                @ResAdmin.lblImage
+                            </label>
+                            <input asp-for="ImageName" type="file" name="file"
+                                   class="form-control" placeholder="@ResAdmin.lblImage"
+                                   onchange="Upload.UploadDefaultImg(event)" accept=".jpg, .jpeg, .png, ,.gif">
+
+                        </div>
+
+                        <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@ResGeneral.lblSave</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <span id="tbImgName"></span>
+                <div  id="tbImgSrc">
+                    @if(Model.ImageName != "")
+                    {
+                        <img  src="/Admin/upload/images/categories/@Model.ImageName" style="width:100%; height:300px;" />
+                    }
+                    <img class="d-none"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section Scripts
+{
+	<script src="~/Admin/js/drawimage.js"></script>
+    <script src="~/Admin/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/Admin/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

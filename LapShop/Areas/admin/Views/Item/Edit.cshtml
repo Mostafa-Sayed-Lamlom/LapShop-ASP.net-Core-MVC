@@ -1,0 +1,142 @@
+﻿@model TbItem
+
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+
+<div class="page-header">
+    <h3 class="page-title"> Add new Item </h3>
+
+</div>
+    <form class="forms-sample" method="post" enctype="multipart/form-data"
+          asp-controller="Item" asp-action="Save" role="form">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <input asp-for="ItemId" type="hidden" />
+                        <input asp-for="CreatedBy" type="hidden" />
+                        <input asp-for="CreatedDate" type="hidden" />
+                        <input asp-for="CurrentState" type="hidden" />
+                        <input asp-for="ImageName" type="hidden" />
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lbItemName</label>
+                            <input asp-for="ItemName" type="text" class="form-control" placeholder="@ResAdmin.lbItemName">
+                        <span class="text-danger" asp-validation-for="ItemName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblCategoryName</label>
+                            <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.lstCategories,"CategoryId","CategoryName"))"></select>
+                        <span class="text-danger" asp-validation-for="CategoryId"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lbItemType</label>
+                            <select class="form-control" asp-for="ItemTypeId" asp-items="@(new SelectList(ViewBag.lstItemTypes,"ItemTypeId","ItemTypeName"))"></select>
+                        <span class="text-danger" asp-validation-for="ItemTypeId"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblOs</label>
+                            <select class="form-control" asp-for="OsId" asp-items="@(new SelectList(ViewBag.lstOs,"OsId","OsName"))"></select>
+                        <span class="text-danger" asp-validation-for="ItemTypeId"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblSalesPrice</label>
+                            <input asp-for="SalesPrice" type="text" class="form-control" placeholder="@ResAdmin.lblSalesPrice">
+                        <span class="text-danger" asp-validation-for="SalesPrice"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblPurchasePrice</label>
+                            <input asp-for="PurchasePrice" type="text" class="form-control" placeholder="@ResAdmin.lblPurchasePrice">
+                        <span class="text-danger" asp-validation-for="PurchasePrice"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>@ResAdmin.lblWeight</label>
+                            <input asp-for="Weight" type="text" class="form-control" placeholder="@ResAdmin.lblWeight">
+                            <span class="text-danger" asp-validation-for="Weight"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                @ResAdmin.lblImage
+                            </label>
+                            <input asp-for="ImageName" type="file" name="File" multiple
+                                   class="form-control" placeholder="@ResAdmin.lblImage"
+                                   onchange="Upload.UploadDefaultImg(event)" accept=".jpg, .jpeg, .png, ,.gif">
+
+                        </div>
+
+                        <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@ResGeneral.lblSave</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Main Data</h4>
+                        <p class="card-description"> Basic form layout </p>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblGpu</label>
+                            <input asp-for="Gpu" type="text" class="form-control" placeholder="@ResAdmin.lblGpu">
+                            <span class="text-danger" asp-validation-for="Gpu"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblProcessor</label>
+                            <input asp-for="Processor" type="text" class="form-control" placeholder="@ResAdmin.lblProcessor">
+                        <span class="text-danger" asp-validation-for="Processor"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblHardDisk</label>
+                            <input asp-for="HardDisk" type="text" class="form-control" placeholder="@ResAdmin.lblHardDisk">
+                        <span class="text-danger" asp-validation-for="HardDisk"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblRamSize</label>
+                            <input asp-for="RamSize" type="number" class="form-control" placeholder="@ResAdmin.lblRamSize">
+                        <span class="text-danger" asp-validation-for="RamSize"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblScreenReslution</label>
+                            <input asp-for="ScreenReslution" type="text" class="form-control" placeholder="@ResAdmin.lblScreenReslution">
+                        <span class="text-danger" asp-validation-for="ScreenReslution"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@ResAdmin.lblScreenSize</label>
+                            <input asp-for="ScreenSize" type="text" class="form-control" placeholder="@ResAdmin.lblScreenSize">
+                        <span class="text-danger" asp-validation-for="ScreenSize"></span>
+                        </div>
+                         <span id="tbImgName"></span> 
+                        <div id="tbImgSrc">
+                            @if(Model.ImageName != null)
+                            {
+                                <img src="/Admin/upload/images/items/@Model.ImageName" style="width:100%; height:300px;" />
+                            }
+                            <img class="d-none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+@section Scripts
+{
+    <script src="~/Admin/js/drawimage.js"></script>
+    <script src="~/Admin/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/Admin/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

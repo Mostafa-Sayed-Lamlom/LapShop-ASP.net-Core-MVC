@@ -1,0 +1,141 @@
+﻿@model ShoppingCart
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+ <!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>cart</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active">cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+<!--section start-->
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col">image</th>
+                            <th scope="col">product name</th>
+                            <th scope="col">price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">action</th>
+                            <th scope="col">total</th>
+                        </tr>
+                    </thead>
+                    @foreach(var item in Model.lstItems)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a asp-controller="Item" asp-action="ItemDetails"><img src="/Admin/upload/images/items/@item.ImageName" alt=""></a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Item" asp-action="ItemDetails">@item.ItemName</a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="text" name="quantity" class="form-control input-number"
+                                                           value="@item.Qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">@item.Price</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">
+                                                <a href="#" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h2>$@item.Price</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="form-control input-number qtyInput"
+                                                 value="@item.Qty" data-price="@item.Price" data-id="@item.ItemId" 
+                                                 onchange="ChangeQty(this)">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><a asp-controller="Order" asp-action="DeleteFromCart" asp-route-itemId="@item.ItemId" class="icon"><i class="ti-close"></i></a></td>
+                                <td>
+                                    <h2 style="display: inline;">$</h2>
+                                    <h2 style="display: inline;" class="td-color totalPrice" data-id="@item.ItemId">@item.Total</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    }
+                </table>
+                <table class="table cart-table table-responsive-md">
+                    <tfoot>
+                        <tr>
+                            <td>total price :</td>
+                            <td>
+                                <h2 style="display: inline;">$</h2>
+                                <h2 style="display: inline;" id="OverAllTotal">@Model.Total</h2>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row cart-buttons">
+            <div class="col-6"><a asp-controller="Home" asp-action="Index" class="btn btn-solid">continue shopping</a></div>
+            <div class="col-6"><a asp-controller="Order" asp-action="OrderSuccess" class="btn btn-solid">check out</a></div>
+        </div>
+    </div>
+</section>
+<!--section end-->
+
+
+<script>
+    function ChangeQty(input) {
+        let id = $(input).data("id");
+        let price = $(input).data("price");
+        let qty = $(input).val();
+        let OverAllTotal = 0;
+
+        // تحديث السعر للمنتج المعني فقط
+        $(".totalPrice").each(function () {
+            if ($(this).data("id") === id) {
+                let newPrice = (price * qty).toFixed(2);
+                $(this).text(newPrice);
+            }
+        });
+
+        // حساب السعر الإجمالي الكلي بعد التغيير
+        $(".totalPrice").each(function () {
+            OverAllTotal += parseFloat($(this).text());
+        });
+
+        // عرض السعر الإجمالي الكلي
+        $("#OverAllTotal").text(OverAllTotal.toFixed(2));
+
+        // ajax resuest
+    }
+</script>

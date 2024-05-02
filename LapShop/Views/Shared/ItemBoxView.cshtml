@@ -1,0 +1,26 @@
+﻿@model TbItem
+
+
+<div class="img-wrapper">
+    <div class="front">
+        <a asp-controller="Item" asp-action="ItemDetails" asp-route-itemId="@Model.ItemId">
+            <img src="/Admin/upload/images/items/@Model.ImageName"
+                 class="img-fluid blur-up lazyload bg-img" alt="">
+        </a>
+    </div>
+    <a asp-controller="Order" asp-action="AddToCart" asp-route-itemId="@Model.ItemId">
+        <div class="add-button" data-toggle="modal" data-target="#addtocart">
+            add to
+            cart
+        </div>
+    </a>
+</div>
+<div class="product-detail">
+    <div class="rating">
+        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+    </div>
+    <a asp-controller="Item" asp-action="ItemDetails" asp-route-itemId="@Model.ItemId">
+        <h6>@Model.ItemName</h6>
+    </a>
+    <h4>$@Model.SalesPrice</h4>
+</div>
